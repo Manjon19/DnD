@@ -19,8 +19,15 @@ header>h2{
     margin-left: 4rem;
 }
 #logo{
-    width: 8rem;
+    height: 10vh;
 }
-.selects{
-    border-radius: 8px;
+#selects{
+    display:flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin: 1rem;
+}
+select{
+    border-radius: 6px;
 }

@@ -19,5 +19,8 @@ header>h2{
     margin-left: 4rem;
 }
 #logo{
-    width: 100px;
+    width: 8rem;
+}
+select{
+    border-radius: 8px;
 }

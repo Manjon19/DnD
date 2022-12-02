@@ -9,8 +9,15 @@ const selectClasses=document.getElementById("clases");
 const selectFeatures=document.getElementById("caracteristicas");
 const selectMonsters=document.getElementById("monsters");
 const selectSpells=document.getElementById("spells");
+const main = document.getElementsByTagName("main");
+const seccion=document.createElement("section");
 //Llenar todos los selects con getters
+getClasses();
+getFeatures()
+getMonsters()
+getSpells()
 
+//Funciones get que hacen llamada a la API especifica y llamada al metodo fill
 async function getClasses(){
     await fetch(classesAPI)
     .then(response=>response.json())
@@ -31,7 +38,7 @@ async function getSpells(){
     .then(response=>response.json())
     .then(data=>fill(data,selectSpells))
 }
-//Funcion que rellena los selects con los datos de la llamada a la API
+//Función que rellena los selects con los datos de la llamada a la API
 function fill(data,select) {
     let selecciona=document.createElement("option");
     selecciona.value=select.name;
@@ -44,8 +51,38 @@ function fill(data,select) {
         select.appendChild(opcion);
     }
 }
-
-getClasses();
-getFeatures()
-getMonsters()
-getSpells()
+selectClasses.addEventListener("change",(e)=>{
+    console.log(e.currentTarget.value)
+    if (e.currentTarget.value!="clases") {
+        cambio(classesAPI,e.currentTarget.value)
+    }
+    
+})
+selectFeatures.addEventListener("change",(e)=>{
+    console.log(e.currentTarget.value)
+    if (e.currentTarget.value!="clases") {
+        cambio(featuresAPI,e.currentTarget.value)
+    }
+    
+})
+selectMonsters.addEventListener("change",(e)=>{
+    console.log(e.currentTarget.value)
+    if (e.currentTarget.value!="clases") {
+        cambio(monstersAPI,e.currentTarget.value)
+    }
+    
+})
+selectSpells.addEventListener("change",(e)=>{
+    console.log(e.currentTarget.value)
+    if (e.currentTarget.value!="clases") {
+        cambio(spellsAPI,e.currentTarget.value)
+    }
+    
+})
+async function cambio(API,value){
+    await fetch(API+"/"+value).then(response=>response.json()).then(data=>{
+        seccion.innerHTML=JSON.stringify(data);
+    main[0].append(seccion)
+    })
+    
+}

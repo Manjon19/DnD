@@ -9,10 +9,8 @@ const selectClasses=document.getElementById("clases");
 const selectFeatures=document.getElementById("caracteristicas");
 const selectMonsters=document.getElementById("monsters");
 const selectSpells=document.getElementById("spells");
-getClasses();
-getFeatures()
-getMonsters()
-getSpells()
+//Llenar todos los selects con getters
+
 async function getClasses(){
     await fetch(classesAPI)
     .then(response=>response.json())
@@ -33,6 +31,7 @@ async function getSpells(){
     .then(response=>response.json())
     .then(data=>fill(data,selectSpells))
 }
+//Funcion que rellena los selects con los datos de la llamada a la API
 function fill(data,select) {
     let selecciona=document.createElement("option");
     selecciona.value=select.name;
@@ -45,3 +44,8 @@ function fill(data,select) {
         select.appendChild(opcion);
     }
 }
+
+getClasses();
+getFeatures()
+getMonsters()
+getSpells()

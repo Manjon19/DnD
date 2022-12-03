@@ -86,3 +86,9 @@ async function cambio(API,value){
     })
     
 }
+
+function fichas(apiName,data) {
+    let html="";
+    
+    return html;
+}

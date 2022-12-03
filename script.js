@@ -54,41 +54,72 @@ function fill(data,select) {
 selectClasses.addEventListener("change",(e)=>{
     console.log(e.currentTarget.value)
     if (e.currentTarget.value!="clases") {
-        cambio(classesAPI,e.currentTarget.value)
+        cambio(classesAPI,e.currentTarget.value,"clases")
     }
     
 })
 selectFeatures.addEventListener("change",(e)=>{
     console.log(e.currentTarget.value)
-    if (e.currentTarget.value!="clases") {
-        cambio(featuresAPI,e.currentTarget.value)
+    if (e.currentTarget.value!="caracteristicas") {
+        cambio(featuresAPI,e.currentTarget.value,"caracteristicas")
     }
     
 })
 selectMonsters.addEventListener("change",(e)=>{
     console.log(e.currentTarget.value)
-    if (e.currentTarget.value!="clases") {
-        cambio(monstersAPI,e.currentTarget.value)
+    if (e.currentTarget.value!="monstruos") {
+        cambio(monstersAPI,e.currentTarget.value,"monstruos")
     }
     
 })
 selectSpells.addEventListener("change",(e)=>{
     console.log(e.currentTarget.value)
-    if (e.currentTarget.value!="clases") {
-        cambio(spellsAPI,e.currentTarget.value)
+    if (e.currentTarget.value!="conjuros") {
+        cambio(spellsAPI,e.currentTarget.value,"conjuros")
     }
     
 })
-async function cambio(API,value){
+async function cambio(API,value,name){
     await fetch(API+"/"+value).then(response=>response.json()).then(data=>{
-        seccion.innerHTML=JSON.stringify(data);
+        console.log(name)
+        fichas(name,data)
     main[0].append(seccion)
     })
     
 }
 
-function fichas(apiName,data) {
+function fichas(name,data) {
     let html="";
+    switch (name) {
+        case "clases":
+            html+=`<p>Clase: ${data.name} </p>
+                    <p>Dado de golpe: ${data.hit_die}</p>
+                    <div> <p>Elige tus favoritas para guardarlas:</p>`;
+            data.proficiency_choices[0].from.options.forEach(proficiency => {
+               html+=`<button name="skill">${proficiency.item.name}</button>`
+            });
+            html+="</div>";
+            html+=`<p>Armas  y armaduras con competencia:</p>
+                    <ul>`;
+            data.proficiencies.forEach(competencia=>{
+                html+=`<li>${competencia.name}</li>`;
+            })
+            html+="</ul>";
+            html+="<p>Tiradas de salvación:</p> <ul>";
+            data.saving_throws.forEach(saving=>{
+                html+=`<li>${saving.name}</li>`;
+            })
+            html+="</ul>";
+            html+="<p>Equipo de inicio:</p> <ul>";
+            data.starting_equipment.forEach(start=>{
+                html+=`<li>${start.equipment.name}</li>`;
+            })
+            html+="</ul> </div>";
+            console.log(html);
+            break;
     
+        default:
+            break;
+    }
     return html;
 }

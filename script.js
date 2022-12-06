@@ -19,59 +19,62 @@ const inputBuscar = document.getElementById("buscar");
 const comentarios = document.getElementById("coment");
 const btnComent = document.getElementById("btnComent");
 const divPublis = document.getElementById("publicados");
-let coments = [];
 
-let contador = 0;
+//Comentarios
+let coments = [];
 comentar();
+//Mostar comentarios por pantalla
 function comentar() {
+ 
   if (
     localStorage.getItem("comentarios") != null &&
     JSON.parse(localStorage.getItem("comentarios")).length > 0
   ) {
-    JSON.parse(localStorage.getItem("comentarios")).forEach(c=>{
+    coments = JSON.parse(localStorage.getItem("comentarios"));
+    JSON.parse(localStorage.getItem("comentarios")).forEach((c) => {
       let divComent = document.createElement("div");
 
       let publish = document.createElement("span");
       publish.id = c.index;
-      publish.innerHTML = c.comentario
+      publish.innerHTML = c.comentario;
       divComent.append(publish);
-      let btnEliminar=document.createElement("button");
-      btnEliminar.value=c.index;
-      btnEliminar.name="eliminar";
-      btnEliminar.innerText="X";
+      let btnEliminar = document.createElement("button");
+      btnEliminar.value = c.index;
+      btnEliminar.name = "eliminar";
+      btnEliminar.innerText = "X";
       divComent.append(btnEliminar);
       divPublis.append(divComent);
-      contador++;
-    })
-    
+    });
   } else {
+    coments=[];
     divPublis.innerHTML = "";
   }
 }
+//Añadir comentarios
 btnComent.addEventListener("click", () => {
   if (comentarios.value == "") {
     alert("No se puede publicar un mensaje vacío");
   } else {
-    coments.push({index:contador,comentario:comentarios.value});
+    let cont = coments.length;
+    coments.push({ index: cont, comentario: comentarios.value });
     localStorage.setItem("comentarios", JSON.stringify(coments));
     let divComent = document.createElement("div");
     let published = document.createElement("span");
-    published.id = contador;
+    published.id = cont;
     published.innerText = comentarios.value;
     divComent.append(published);
 
     let publicarBtn = document.createElement("button");
-    publicarBtn.value = contador;
+    publicarBtn.value = cont;
     publicarBtn.innerHTML = "X";
-    publicarBtn.name="eliminar"
-    
+    publicarBtn.name = "eliminar";
+
     divComent.append(publicarBtn);
     divPublis.append(divComent);
     comentarios.value = "";
-    contador++;
   }
 });
-
+//Borrar comentarios
 document.addEventListener("click", (e) => {
   if (e.target.name == "eliminar") {
     deleteComent(e.target.value);
@@ -80,21 +83,17 @@ document.addEventListener("click", (e) => {
 });
 
 function deleteComent(contador) {
-  
-  let com = document.getElementById(contador);
   let arrayComents = [];
   JSON.parse(localStorage.getItem("comentarios")).forEach((c) => {
     if (c.index != contador) {
-      console.log("hola2");
       arrayComents.push(c);
-      console.log("hola3");
-    }else{
-      console.log("hola4")
     }
   });
   localStorage.setItem("comentarios", JSON.stringify(arrayComents));
-  comentar()
+  divPublis.innerHTML = "";
+  comentar();
 }
+
 //Mostrar el buscador
 btnAside.addEventListener("click", () => {
   aside.classList.toggle("activa");
@@ -246,7 +245,11 @@ selectSpells.addEventListener("change", (e) => {
   if (e.currentTarget.value != "conjuros") {
     cambio(spellsAPI, e.currentTarget.value, "conjuros");
   } else {
-    seccion.innerHTML = "";
+    if (localStorage.getItem("ficha") != null) {
+      mostrarFicha();
+    } else {
+      seccion.innerHTML = "";
+    }
   }
 });
 

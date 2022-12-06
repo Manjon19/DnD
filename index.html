@@ -14,6 +14,35 @@
       <img src="./media/dndlogo.png" alt="DnD" id="logo" />
       <h2>Control de API Dragones y Mazmorras</h2>
     </header>
+    <aside id="buscador">
+      <button id="aside">&#9776;</button>
+      <img src="./media/dndlogo.png" alt="DnD" id="logo2" />
+      <br />
+      <span
+        >Selecciona una opción y busca lo que quieras encontrar en esa
+        categoría</span
+      >
+      <input type="text" id="buscar" />
+      <button id="btnBuscar">Buscar</button>
+      <div id="busquedaDiv">
+        <label for="rClases">Clases</label>
+        <input type="radio" name="busca" id="rClases" value="clases" />
+
+        <label for="rCaracteristicas">Caracteristicas</label>
+        <input
+          type="radio"
+          name="busca"
+          id="rCaracteristicas"
+          value="caracteristicas"
+        />
+        <br />
+        <label for="rMonstruos">Monstruos</label>
+        <input type="radio" name="busca" id="rMonstruos" value="monstruos" />
+
+        <label for="rConjuros">Conjuros</label>
+        <input type="radio" name="busca" id="rConjuros" value="conjuros" />
+      </div>
+    </aside>
     <main>
       <div id="selects">
         <select name="clases" id="clases"></select>
@@ -21,8 +50,16 @@
         <select name="monstruos" id="monsters"></select>
         <select name="conjuros" id="spells"></select>
       </div>
+      <section id="section"></section>
     </main>
-    <aside></aside>
-    <footer></footer>
+
+    <footer>
+      <div id="publicados"></div>
+      <div id="comentarios">
+        <textarea name="comentarios" id="coment" cols="50" rows="10"></textarea>
+        <br>
+        <button id="btnComent">Publicar</button>
+      </div>
+    </footer>
   </body>
 </html>

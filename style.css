@@ -21,6 +21,9 @@ header>h2{
 #logo{
     height: 10vh;
 }
+#logo2{
+    height: 20vh;
+}
 #selects{
     display:flex;
     flex-direction: row;
@@ -37,4 +40,61 @@ section{
     align-items: center;
     align-content: flex-start;
     margin-top: 2rem;
+}
+#aside{
+    position: absolute;
+    left:310px;
+    width: 40px;
+    text-align: center;
+    font-size: 30px;
+    border: 1px solid black;
+    border-radius: 6px;
+    cursor: pointer;
+    
+}
+#buscador{
+    padding: 1rem;
+    position: fixed;
+    width:300px;
+    height: 100%;
+    left:-301px;
+    top:0px;
+    border: 1px solid black;
+    background-color: #D81921;
+    color: white;
+    font-size: 2em;
+    transition: all 400ms linear;
+    text-align: center;
+}
+#buscador.activa{
+    left:0px;
+}
+#buscador.activa #aside{
+    position: fixed;
+}
+#btnBuscar{
+    margin-bottom: 3rem;
+    
+}
+#buscar{
+    margin-top: 3rem;
+}
+aside>span{
+    font-size: .8em;
+}
+footer{margin-top: 30px;
+    bottom: 0px;
+    left: 35vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+}
+#publicados{
+    display: flex;
+    flex-direction: column;
+    align-items: end;
+}
+#publicados>div{
+    gap: 20px;
 }
